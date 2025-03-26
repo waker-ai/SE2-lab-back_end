@@ -1,11 +1,11 @@
 package com.example.tomatomall.service;
 
-import com.example.tomatomall.po.Account;
+import com.example.tomatomall.po.User;
 
 public interface AccountService {
-    //用户名查询用户
-    Account findByUsername(String username);
+    User findByUsername(String username);
+    User createUser(User user);
+    User updateUser(User user);
+    boolean authenticate(String username, String password);//判断是否有该用户
 
-    //完成注册
-    void register(String username, String password);
 }
