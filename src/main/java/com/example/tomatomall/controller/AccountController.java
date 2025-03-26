@@ -2,14 +2,9 @@ package com.example.tomatomall.controller;
 
 import com.example.tomatomall.po.User;
 import com.example.tomatomall.service.AccountService;
-import com.example.tomatomall.util.JwtUtil;
 import com.example.tomatomall.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -27,8 +22,7 @@ public class AccountController {
     public Response getUser(@PathVariable String username) {
         User user = accountService.findByUsername(username);
         if (user != null) {
-            user.setPassword(null); // 不返回密码
-            return Response.buildSuccess(user);
+            return Response.buildSuccess(user);//返回user结构体
         }
         return Response.buildFailure("User not found", "404");
     }
@@ -37,17 +31,15 @@ public class AccountController {
      * 创建新的用户
      */
     @PostMapping()
-    public Response createUser(@RequestParam String username, @RequestParam String password) {
+    public Response createUser(@RequestParam String username, @RequestParam String password) {//参数并没有设定邮箱之类的，后面看要不要加上
 
-        //参数并没有设定邮箱之类的，后面看要不要加上
-        if (accountService.findByUsername(username) != null) {
+        if (accountService.findByUsername(username) != null) {//保证用户名唯一
             return Response.buildFailure("Username already exists", "409");
         }
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         User createdUser = accountService.createUser(user);
-        createdUser.setPassword(null); // 不返回密码
         return Response.buildSuccess(createdUser);
     }
 
@@ -62,7 +54,6 @@ public class AccountController {
 
         User updatedUser = accountService.updateUser(user);
         if (updatedUser != null) {
-            updatedUser.setPassword(null); // 不返回密码
             return Response.buildSuccess(updatedUser);
         } else {
             return Response.buildFailure("User not found or update failed", "404");
@@ -78,11 +69,12 @@ public class AccountController {
             // 创建一个不包含敏感信息的用户对象
             User safeUser = new User();
             safeUser.setUsername(user.getUsername());
+            //下面的尚未实现，应该是默认为空，后面也可以修改user类，强制其不为空
             safeUser.setName(user.getName());
             safeUser.setAvatar(user.getAvatar());
             safeUser.setEmail(user.getEmail());
             safeUser.setLocation(user.getLocation());
-            // 不设置密码字段
+            // 修改密码功能暂时不实现
 
             return Response.buildSuccess(safeUser);
         } else {

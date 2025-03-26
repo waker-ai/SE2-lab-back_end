@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 public class User {
     @Id
+    //现在让用户名和密码不为空
     @Column(nullable = false, length = 50)
     private String username;
 
