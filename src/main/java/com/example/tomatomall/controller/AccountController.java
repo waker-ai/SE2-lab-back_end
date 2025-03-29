@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+
 @RequestMapping("/api/accounts")
 public class AccountController {
 
@@ -30,15 +31,14 @@ public class AccountController {
     /**
      * 创建新的用户
      */
-    @PostMapping()
-    public Response createUser(@RequestParam String username, @RequestParam String password) {//参数并没有设定邮箱之类的，后面看要不要加上
 
-        if (accountService.findByUsername(username) != null) {//保证用户名唯一
+    @PostMapping()
+    public Response createUser(@RequestBody User user) {//参数并没有设定邮箱之类的，后面看要不要加上
+
+        if (accountService.findByUsername(user.getUsername()) != null) {//保证用户名唯一
             return Response.buildFailure("Username already exists", "409");
         }
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
+
         User createdUser = accountService.createUser(user);
         return Response.buildSuccess(createdUser);
     }
@@ -67,14 +67,18 @@ public class AccountController {
         if (accountService.authenticate(username, password)) {
             User user = accountService.findByUsername(username);
             // 创建一个不包含敏感信息的用户对象
+            //图像功能暂且还没有实现
             User safeUser = new User();
             safeUser.setUsername(user.getUsername());
-            //下面的尚未实现，应该是默认为空，后面也可以修改user类，强制其不为空
+
+            safeUser.setUsername(user.getUsername());
             safeUser.setName(user.getName());
             safeUser.setAvatar(user.getAvatar());
             safeUser.setEmail(user.getEmail());
             safeUser.setLocation(user.getLocation());
-            // 修改密码功能暂时不实现
+            safeUser.setTelephone(user.getTelephone());
+            safeUser.setRole(user.getRole());
+
 
             return Response.buildSuccess(safeUser);
         } else {
