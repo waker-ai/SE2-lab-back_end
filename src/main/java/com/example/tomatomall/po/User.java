@@ -21,6 +21,9 @@ public class User {
     @Column(length = 255)
     private String avatar;
 
+    @Column(length =50 )
+    private String role;
+
     @Column(length = 11)
     private String telephone;
 
