@@ -65,8 +65,7 @@ public class AccountController {
     public Response login(@RequestParam String username, @RequestParam String password) {
         if (accountService.authenticate(username, password)) {
             User user = accountService.findByUsername(username);
-            // 创建一个不包含敏感信息的用户对象
-            //图像功能暂且还没有实现
+
             User safeUser = new User();
             safeUser.setUsername(user.getUsername());
 
