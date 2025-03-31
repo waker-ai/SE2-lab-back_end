@@ -42,7 +42,6 @@ public class AccountController {
         User createdUser = accountService.createUser(user);
         return Response.buildSuccess(createdUser);
     }
-
     /**
      * 更新用户信息
      */
