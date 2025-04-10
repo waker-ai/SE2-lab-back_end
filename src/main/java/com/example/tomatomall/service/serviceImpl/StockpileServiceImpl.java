@@ -15,7 +15,7 @@ public class StockpileServiceImpl implements StockpileService {
     private StockpileRepository stockpileRepository;
 
     @Override
-    public Optional<Stockpile> adjustStockpile(String productId, Integer amount) {
+    public Optional<Stockpile> adjustStockpile(Long productId, Integer amount) {
         Optional<Stockpile> stockpileOptional = stockpileRepository.findByProductId(productId);
         if (stockpileOptional.isPresent()) {
             Stockpile stockpile = stockpileOptional.get();
@@ -26,7 +26,7 @@ public class StockpileServiceImpl implements StockpileService {
     }
 
     @Override
-    public Optional<Stockpile> getStockpileByProductId(String productId) {
+    public Optional<Stockpile> getStockpileByProductId(Long productId) {
         return stockpileRepository.findByProductId(productId);
     }
 }

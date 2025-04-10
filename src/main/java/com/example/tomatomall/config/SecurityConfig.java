@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/accounts/**").permitAll() // 允许 /api/accounts 访问
                 .antMatchers("/api/products/**").permitAll()
+                .antMatchers("/api/oss/**").permitAll()
                 .antMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll() // 允许 CORS 预检请求
                 .anyRequest().authenticated()
                 .and()

@@ -5,7 +5,7 @@ import com.example.tomatomall.po.Stockpile;
 import java.util.Optional;
 
 public interface StockpileService {
-    Optional<Stockpile> adjustStockpile(String productId, Integer amount);
+    Optional<Stockpile> adjustStockpile(Long productId, Integer amount);
 
-    Optional<Stockpile> getStockpileByProductId(String productId);
+    Optional<Stockpile> getStockpileByProductId(Long productId);
 }

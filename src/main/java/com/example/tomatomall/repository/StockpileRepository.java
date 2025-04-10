@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface StockpileRepository extends JpaRepository<Stockpile, String> {
-    Optional<Stockpile> findByProductId(String productId);
+    Optional<Stockpile> findByProductId(Long productId);
 }
 
 

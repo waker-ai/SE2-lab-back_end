@@ -1,6 +1,5 @@
 package com.example.tomatomall.controller;
 
-
 import com.example.tomatomall.po.Product;
 import com.example.tomatomall.po.Stockpile;
 import com.example.tomatomall.service.ProductService;
@@ -33,7 +32,7 @@ public class ProductController {
 
     //获取指定商品信息
     @GetMapping("/{id}")
-    public Response<ProductVO> getproduct(@PathVariable String id){
+    public Response<ProductVO> getproduct(@PathVariable Long id){
         ProductVO product = productService.getProduct(id);
         if(product == null){
             return Response.buildFailure("Product not found", "404");
@@ -61,7 +60,7 @@ public class ProductController {
 
     //删除商品
     @DeleteMapping("/{id}")
-    public Response deleteProduct(@PathVariable String id) {
+    public Response deleteProduct(@PathVariable Long id) {
         if (productService.deleteProduct(id)) {
             return Response.buildSuccess("删除成功");
         }
@@ -70,7 +69,7 @@ public class ProductController {
 
     //调整指定商品的库存
     @PatchMapping("/stockpile/{productId}")
-    public Response adjustStockpile(@PathVariable String productId, @RequestParam Integer amount) {
+    public Response adjustStockpile(@PathVariable Long productId, @RequestParam Integer amount) {
         Optional<Stockpile> stockpileOptional = stockpileService.adjustStockpile(productId, amount);
         if (stockpileOptional.isPresent()) {
             return Response.buildSuccess("调整库存成功");
@@ -80,7 +79,7 @@ public class ProductController {
 
     //获取指定商品的库存信息
     @GetMapping("/stockpile/{productId}")
-    public Response getStockpileByProductId(@PathVariable String productId) {
+    public Response getStockpileByProductId(@PathVariable Long productId) {
         Optional<Stockpile> stockpileOptional = stockpileService.getStockpileByProductId(productId);
         if (stockpileOptional.isPresent()) {
             return Response.buildSuccess(stockpileOptional.get());

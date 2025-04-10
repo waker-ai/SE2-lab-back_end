@@ -16,7 +16,7 @@ public class Specification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id",nullable = false)
-    private String id;
+    private Long id;
 
     @Column(name="item",nullable = false, length = 50)
     private String item; // 规格名称

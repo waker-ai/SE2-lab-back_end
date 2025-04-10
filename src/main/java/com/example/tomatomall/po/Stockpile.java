@@ -10,10 +10,10 @@ public class Stockpile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
 
     @Column(name = "product_id", nullable = false)
-    private String productId; // 关联商品表的主键
+    private Long productId; // 关联商品表的主键
 
     @Column(name = "amount", nullable = false)
     private Integer amount;

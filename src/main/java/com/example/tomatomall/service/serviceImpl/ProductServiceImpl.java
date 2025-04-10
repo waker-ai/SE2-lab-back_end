@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductVO getProduct(String id) {
+    public ProductVO getProduct(Long id) {
         Product product = productRepository.findById(id).orElse(null);
         if(product != null){
             return product.toVO();
@@ -72,12 +72,12 @@ public class ProductServiceImpl implements ProductService {
             product.setSpecifications(new ArrayList<>()); // 避免 null 引发异常
         }
 
-        productRepository.save(product);
-        return product.toVO();
+        Product savedProduct = productRepository.save(product); // ✅ 接住返回值
+        return savedProduct.toVO();
     }
 
     @Override
-    public boolean deleteProduct(String id) {
+    public boolean deleteProduct(Long id) {
         Product product = productRepository.findById(id).orElse(null);
         if (product != null) {
             productRepository.deleteById(id);

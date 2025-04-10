@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class ProductVO {
-    private String id; // 商品ID
+    private Long id; // 商品ID
     private String title; // 商品名称
     private BigDecimal price; // 商品价格
     private Double rate; // 商品评分
